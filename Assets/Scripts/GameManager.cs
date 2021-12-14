@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     // Null instance of the manager
     public static GameManager instance = null;
+    // Bool if it is 1st person perspective, false = 3rd person perspective
+    static private bool is1stPP = true;
 
     private void Awake()
     {
@@ -26,8 +28,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
-    {
 
+    // Set the perspective, true = 1st PP, false = 3rd PP
+    static public void Set1stPP(bool b)
+    {
+        is1stPP = b; 
+    }
+    // Get the status of the perspective
+    static public bool GetIs1stPP()
+    {
+        return is1stPP;
     }
 }

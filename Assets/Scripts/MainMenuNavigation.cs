@@ -5,16 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuNavigation : MonoBehaviour
 {
-    // Play scenario with 3rd person perspective
+    // Play scenario with 1st person perspective
     public void Play1stPP()
     {
-        SceneManager.LoadScene("1Person");
+        // Set it to 1st PP
+        GameManager.Set1stPP(true);
+        SceneManager.LoadScene("TestingEnvironment");
     }
 
     // Play scenario with 3rd person perspective
     public void Play3rdPP()
     {
-        SceneManager.LoadScene("3Person"); 
+        // Set it to not 1st PP (3rd PP)
+        GameManager.Set1stPP(false);
+        SceneManager.LoadScene("TestingEnvironment"); 
     }
     // Exit the application
     public void Exit()
