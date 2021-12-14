@@ -5,23 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuNavigation : MonoBehaviour
 {
-    [SerializeField] private bool isFirstPersonPerspective = true;
-    public void PlayGame()
+    // Play scenario with 3rd person perspective
+    public void Play1stPP()
     {
-        // Load the scene based on if it is the 1st or 3rd player perspective
-        if (isFirstPersonPerspective)
-        {
-            SceneManager.LoadScene("1Person");
-        }
-        else
-        {
-            SceneManager.LoadScene("3Person");
-        }
+        SceneManager.LoadScene("1Person");
     }
 
-    // Set the isFirstPerson boolean
-    public void SetIsFirstPerson(bool b)
+    // Play scenario with 3rd person perspective
+    public void Play3rdPP()
     {
-        isFirstPersonPerspective = b;
+        SceneManager.LoadScene("3Person"); 
     }
+    // Exit the application
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
 }

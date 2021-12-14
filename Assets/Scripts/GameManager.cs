@@ -6,10 +6,7 @@ public class GameManager : MonoBehaviour
 {
     // Null instance of the manager
     public static GameManager instance = null;
-    // Main menu navigation
-    [SerializeField] private MainMenuNavigation mainMenuNavigation = null;
-    [Header("Perspective choice")]
-    [SerializeField] private bool isFirstPersonPerspective = true;
+
     private void Awake()
     {
         // SINGLETON PATTERN
@@ -31,9 +28,6 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        // Save main menu navigation
-        mainMenuNavigation = GameObject.Find("MenuCanvas").GetComponent<MainMenuNavigation>();
-        // Set the perspective based on the game manager's choice
-        mainMenuNavigation.SetIsFirstPerson(isFirstPersonPerspective);
+
     }
 }
