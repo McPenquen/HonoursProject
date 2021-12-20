@@ -10,11 +10,17 @@ public class Player : MonoBehaviour
 
     [Header("Object References")]
     [SerializeField] private GameObject cam = null;
+    [SerializeField] private GameObject feet = null;
     
+    // The player is can jump - is touching the floor/and object with feet
+    private bool canJump = false;
+
      void Start()
     {
         // Save the cam reference
         cam = transform.GetChild(0).gameObject;
+        // Save the feet reference
+        feet = transform.GetChild(1).gameObject;
     }
 
     void Update()
@@ -31,14 +37,21 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float mouseXInput = Input.GetAxis("Mouse X");
         float mouseYInput = Input.GetAxis("Mouse Y");
+        float jumpInput = Input.GetAxis("Jump");
 
         // If we detect a motion input lets move
         if (horizontalInput != 0 || verticalInput != 0)
         {
+            // Adjust the forward and side vectors to 2D
+            Vector3 twoDForward = cam.transform.forward;
+            Vector3 twoDSide = Vector3.Cross(cam.transform.forward, transform.up);
+            twoDForward.y = 0;
+            twoDSide.y = 0;
+
             // Get the new position
             Vector3 newPosition = transform.position  
-                + cam.transform.forward * movementSpeed * Time.deltaTime * verticalInput
-                + - Vector3.Cross(cam.transform.forward, transform.up) * movementSpeed * Time.deltaTime * horizontalInput;
+                + twoDForward * movementSpeed * Time.deltaTime * verticalInput
+                + - twoDSide * movementSpeed * Time.deltaTime * horizontalInput;
 
             // Move the object to the new position
             transform.position = newPosition;
