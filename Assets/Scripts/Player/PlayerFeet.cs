@@ -15,8 +15,8 @@ public class PlayerFeet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision col)
     {
-        // If the player newly touches the environment let the player know they are can jump
-        if (col.gameObject.layer == 15 && !isGrounded)
+        // If the player touches the environment let the player know they are can jump
+        if (col.gameObject.layer == 15)
         {
             isGrounded = true;
             player.SetCanJump(isGrounded);
@@ -25,8 +25,8 @@ public class PlayerFeet : MonoBehaviour
 
     private void OnCollisionExit(Collision col)
     {
-        // If the player newly stop touching the environment let the player know they are can't jump
-        if (col.gameObject.layer == 15 && isGrounded)
+        // If the player stop touching the environment let the player know they are can't jump
+        if (col.gameObject.layer == 15 && isGrounded )
         {
             isGrounded = false;
             player.SetCanJump(isGrounded);

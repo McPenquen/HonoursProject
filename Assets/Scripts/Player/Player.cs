@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [Header("Movement Variables")]
     [SerializeField] private int movementSpeed = 10;
     [SerializeField] private int rotationSpeed = 5;
+    [SerializeField] private float jumpForce = 10.0f;
 
     [Header("Object References")]
     [SerializeField] private GameObject cam = null;
@@ -64,6 +65,12 @@ public class Player : MonoBehaviour
             // Freeze the z-axis rotation
             Vector3 currentAngles = cam.transform.eulerAngles;
             cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0); 
+        }
+
+        // Detect jumping
+        if (jumpInput != 0 && canJump)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
         }
     }
     // Set the jumping to a bool
