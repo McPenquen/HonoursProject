@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Object References")]
     [SerializeField] private GameObject cam = null;
-    [SerializeField] private GameObject feet = null;
+    private Rigidbody rb = null;
     
     // The player is can jump - is touching the floor/and object with feet
     private bool canJump = false;
@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     {
         // Save the cam reference
         cam = transform.GetChild(0).gameObject;
-        // Save the feet reference
-        feet = transform.GetChild(1).gameObject;
+        // Save rigid body reference
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -49,12 +49,12 @@ public class Player : MonoBehaviour
             twoDSide.y = 0;
 
             // Get the new position
-            Vector3 newPosition = transform.position  
+            Vector3 newPosition = transform.position 
                 + twoDForward * movementSpeed * Time.deltaTime * verticalInput
                 + - twoDSide * movementSpeed * Time.deltaTime * horizontalInput;
 
             // Move the object to the new position
-            transform.position = newPosition;
+            rb.MovePosition(newPosition);
         }
 
         // If we detect mouse input rotate the camera
@@ -65,6 +65,11 @@ public class Player : MonoBehaviour
             Vector3 currentAngles = cam.transform.eulerAngles;
             cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0); 
         }
+    }
+    // Set the jumping to a bool
+    public void SetCanJump(bool b)
+    {
+        canJump = b;
     }
 
 }

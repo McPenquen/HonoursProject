@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class PlayerFeet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Reference to the player
+    [SerializeField] private Player player = null;
+    // Is touching ground or an object
+    private bool isGrounded = false;
+
+    private void Start()
     {
-        
+        player = transform.parent.GetComponent<Player>();
+    }
+    private void OnCollisionEnter(Collision col)
+    {
+        // If the player newly touches the environment let the player know they are can jump
+        if (col.gameObject.layer == 15 && !isGrounded)
+        {
+            isGrounded = true;
+            player.SetCanJump(isGrounded);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionExit(Collision col)
     {
-        
+        // If the player newly stop touching the environment let the player know they are can't jump
+        if (col.gameObject.layer == 15 && isGrounded)
+        {
+            isGrounded = false;
+            player.SetCanJump(isGrounded);
+        }
     }
 }
