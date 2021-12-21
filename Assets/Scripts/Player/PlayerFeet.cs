@@ -16,7 +16,7 @@ public class PlayerFeet : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         // If the player touches the environment let the player know they are can jump
-        if (col.gameObject.layer == 15)
+        if (col.gameObject.layer == 15 && !isGrounded)
         {
             isGrounded = true;
             player.SetCanJump(isGrounded);

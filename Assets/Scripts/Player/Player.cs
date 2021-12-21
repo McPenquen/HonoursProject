@@ -40,33 +40,26 @@ public class Player : MonoBehaviour
         float mouseYInput = Input.GetAxis("Mouse Y");
         float jumpInput = Input.GetAxis("Jump");
 
-        // If we detect a motion input lets move
-        if (horizontalInput != 0 || verticalInput != 0)
-        {
-            // Adjust the forward and side vectors to 2D
-            Vector3 twoDForward = cam.transform.forward;
-            Vector3 twoDSide = Vector3.Cross(cam.transform.forward, transform.up);
-            twoDForward.y = 0;
-            twoDSide.y = 0;
+        // Adjust the forward and side vectors to 2D
+        Vector3 twoDForward = cam.transform.forward;
+        Vector3 twoDSide = Vector3.Cross(cam.transform.forward, transform.up);
+        twoDForward.y = 0;
+        twoDSide.y = 0;
 
-            // Get the new position
-            Vector3 newPosition = transform.position 
-                + twoDForward * movementSpeed * Time.deltaTime * verticalInput
-                + - twoDSide * movementSpeed * Time.deltaTime * horizontalInput;
+        // Get the new position
+        Vector3 newPosition = transform.position 
+            + twoDForward.normalized * movementSpeed * Time.deltaTime * verticalInput
+            + - twoDSide.normalized * movementSpeed * Time.deltaTime * horizontalInput;
 
-            // Move the object to the new position
-            rb.MovePosition(newPosition);
-        }
+        // Move the object to the new position
+        //rb.MovePosition(newPosition);
+        transform.position = newPosition;    
 
-        // If we detect mouse input rotate the camera
-        if (mouseXInput != 0 || mouseYInput != 0)
-        {
-            cam.transform.Rotate(-mouseYInput * rotationSpeed, mouseXInput * rotationSpeed, 0);
-            // Freeze the z-axis rotation
-            Vector3 currentAngles = cam.transform.eulerAngles;
-            cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0); 
-        }
-
+        cam.transform.Rotate(-mouseYInput * rotationSpeed, mouseXInput * rotationSpeed, 0);
+        // Freeze the z-axis rotation
+        Vector3 currentAngles = cam.transform.eulerAngles;
+        cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0); 
+    
         // Detect jumping
         if (jumpInput != 0 && canJump)
         {
