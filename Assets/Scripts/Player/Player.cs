@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Active Perspective")]
+    [SerializeField] private bool is1stPP = true;
     [Header("Movement Variables")]
     [SerializeField] private int movementSpeed = 10;
     [SerializeField] private int rotationSpeed = 5;
     [SerializeField] private float jumpForce = 10.0f;
 
     [Header("Object References")]
-    [SerializeField] private GameObject cam = null;
+    [SerializeField] private GameObject cam = null; // camera
     private Rigidbody rb = null;
     
     // The player is can jump - is touching the floor/and object with feet
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
         cam = transform.GetChild(0).gameObject;
         // Save rigid body reference
         rb = GetComponent<Rigidbody>();
+        // Save the perspective
+        is1stPP = GameManager.GetIs1stPP();
     }
 
     void Update()
