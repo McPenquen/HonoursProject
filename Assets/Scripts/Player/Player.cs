@@ -67,16 +67,26 @@ public class Player : MonoBehaviour
                 + - twoDSide.normalized * movementSpeed * Time.deltaTime * horizontalInput;
 
             // Move the object to the new position
-            //rb.MovePosition(newPosition);
             transform.position = newPosition;
 
-            // Set walking animation to false
-            animator.SetBool("isWalking", false); 
+            // Set walking animation to true
+            if (verticalInput < 0)
+            {
+                animator.SetBool("isForwardWalking", false);
+                animator.SetBool("isBackwardsWalking", true);
+            }
+            else
+            {
+                animator.SetBool("isForwardWalking", true);
+                animator.SetBool("isBackwardsWalking", false);
+            }
+            
         }
         else
         {
             // Set walking animation to false
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isForwardWalking", false);
+            animator.SetBool("isBackwardsWalking", false);
         }
 
         // Rotate the camera
