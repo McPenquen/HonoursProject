@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool is1stPP = true;
     [Header("Movement Variables")]
     [SerializeField] private int movementSpeed = 10;
+    [SerializeField] private float maxSpeed = 5.0f;
     [SerializeField] private int rotationSpeed = 5;
     [SerializeField] private float jumpForce = 10.0f;
 
@@ -62,12 +63,11 @@ public class Player : MonoBehaviour
             twoDSide.y = 0;
 
             // Get the new position
-            Vector3 newPosition = transform.position 
-                + twoDForward.normalized * movementSpeed * Time.deltaTime * verticalInput
+            Vector3 newPosition = twoDForward.normalized * movementSpeed * Time.deltaTime * verticalInput
                 + - twoDSide.normalized * movementSpeed * Time.deltaTime * horizontalInput;
 
             // Move the object to the new position
-            transform.position = newPosition;
+            rb.AddForce(newPosition, ForceMode.VelocityChange);
 
             // Set walking animation to true
             if (verticalInput < 0)
@@ -79,8 +79,7 @@ public class Player : MonoBehaviour
             {
                 animator.SetBool("isForwardWalking", true);
                 animator.SetBool("isBackwardsWalking", false);
-            }
-            
+            }  
         }
         else
         {
