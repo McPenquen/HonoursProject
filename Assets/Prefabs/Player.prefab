@@ -68,6 +68,7 @@ MonoBehaviour:
   rotationSpeed: 5
   jumpForce: 5
   cam: {fileID: 596183520491497705}
+  body: {fileID: 8987507396514721587}
 --- !u!1 &596183520491497705
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +388,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 977644597387cc14892d7b14a0d64547, type: 3}
+--- !u!1 &8987507396514721587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1722129791894379077, guid: 977644597387cc14892d7b14a0d64547, type: 3}
+  m_PrefabInstance: {fileID: 7736112892429202806}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5395685651056319776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2431207345190971478, guid: 977644597387cc14892d7b14a0d64547, type: 3}
