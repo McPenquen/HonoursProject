@@ -9,10 +9,6 @@ public class PlayerFeet : MonoBehaviour
     // Is touching ground or an object
     private bool isGrounded = false;
 
-    private void Start()
-    {
-        player = transform.parent.GetComponent<Player>();
-    }
     private void OnCollisionEnter(Collision col)
     {
         // If the player touches the environment let the player know they are can jump

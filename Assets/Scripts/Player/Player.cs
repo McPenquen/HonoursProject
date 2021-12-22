@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [Header("Object References")]
     [SerializeField] private GameObject cam = null; // camera
     [SerializeField] private GameObject body = null; // body    
+    [SerializeField] private GameObject camAndBody = null; // body    
     private Rigidbody rb = null;
     private Animator animator = null;
     
@@ -23,18 +24,24 @@ public class Player : MonoBehaviour
 
      void Start()
     {
-        // Save the cam reference
-        cam = transform.GetChild(0).gameObject;
-        // Save the cam reference
-        body = transform.GetChild(2).gameObject;
+        // Save the perspective
+        is1stPP = GameManager.GetIs1stPP();
+
+        // Setup the camera
+        if (is1stPP)
+        {
+            cam.transform.localPosition = new Vector3(0 , 1.9f,0);
+        }
+        else
+        {
+            cam.transform.localPosition = new Vector3(0 , 3.0f,-2.0f);
+        }
 
         // Save rigid body reference
         rb = GetComponent<Rigidbody>();
         // Save animator reference
         animator = body.GetComponent<Animator>();
 
-        // Save the perspective
-        is1stPP = GameManager.GetIs1stPP();
     }
 
     void Update()
@@ -88,15 +95,30 @@ public class Player : MonoBehaviour
             animator.SetBool("isBackwardsWalking", false);
         }
 
-        // Rotate the camera
-        cam.transform.Rotate(-mouseYInput * rotationSpeed, mouseXInput * rotationSpeed, 0);
-        // Freeze the z-axis rotation
-        Vector3 currentAngles = cam.transform.eulerAngles;
-        cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0);
-        // Rotate the body
-        body.transform.Rotate(0, mouseXInput * rotationSpeed, 0);
-        // Freeze the z-axis & x-axis rotation
-        body.transform.eulerAngles = new Vector3(0, currentAngles.y, 0);
+        // Move the camera based on the view mode
+        if (is1stPP)
+        {
+            // Rotate the camera
+            cam.transform.Rotate(-mouseYInput * rotationSpeed, mouseXInput * rotationSpeed, 0);
+            // Freeze the z-axis rotation
+            Vector3 currentAngles = cam.transform.eulerAngles;
+            cam.transform.eulerAngles = new Vector3(currentAngles.x, currentAngles.y, 0);
+
+            // Rotate the body
+            body.transform.Rotate(0, mouseXInput * rotationSpeed, 0);
+            // Freeze the z-axis & x-axis rotation
+            body.transform.eulerAngles = new Vector3(0, currentAngles.y, 0);
+        }
+        else
+        {
+            // Rotate the camera about the x axis
+            cam.transform.Rotate(-mouseYInput * rotationSpeed, 0, 0);
+
+            // Rotate the body and cam object about the y axis
+            camAndBody.transform.Rotate(0, mouseXInput * rotationSpeed, 0);
+            Vector3 currentAngles2 = camAndBody.transform.eulerAngles;
+            camAndBody.transform.eulerAngles = new Vector3(0, currentAngles2.y, 0);
+        }
     
         // Detect jumping
         if (jumpInput != 0 && canJump)
