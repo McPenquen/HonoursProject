@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 559804940735510446}
+  playerAnimator: {fileID: 0}
 --- !u!65 &6868342235512777640
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1722129791894379077, guid: 977644597387cc14892d7b14a0d64547, type: 3}
       propertyPath: m_Name
-      value: Modular Fantasy Character (1)
+      value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 2431207345190971478, guid: 977644597387cc14892d7b14a0d64547, type: 3}
       propertyPath: m_RootOrder

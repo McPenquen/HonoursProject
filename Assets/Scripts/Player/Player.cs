@@ -76,24 +76,35 @@ public class Player : MonoBehaviour
             // Move the object to the new position
             rb.AddForce(newPosition, ForceMode.VelocityChange);
 
-            // Set walking animation to true
-            if (verticalInput < 0)
+            // Walking animation isn't zero
+            if (verticalInput != 0)
             {
-                animator.SetBool("isForwardWalking", false);
-                animator.SetBool("isBackwardsWalking", true);
+                animator.SetBool("isVerticalZero", false);
             }
             else
             {
-                animator.SetBool("isForwardWalking", true);
-                animator.SetBool("isBackwardsWalking", false);
-            }  
+                animator.SetBool("isVerticalZero", true);
+            }
+            if (horizontalInput != 0)
+            {
+                animator.SetBool("isHorizontalZero", false);  
+            }
+            else
+            {
+                animator.SetBool("isHorizontalZero", true); 
+            }          
         }
         else
         {
-            // Set walking animation to false
-            animator.SetBool("isForwardWalking", false);
-            animator.SetBool("isBackwardsWalking", false);
+            // Walking animation is zero
+            animator.SetBool("isVerticalZero", true);
+            animator.SetBool("isHorizontalZero", true);  
         }
+
+        // Set walking animation
+        animator.SetFloat("horizontalMovement", horizontalInput);
+        animator.SetFloat("verticalMovement", verticalInput);
+
 
         // Move the camera based on the view mode
         if (is1stPP)
@@ -124,7 +135,8 @@ public class Player : MonoBehaviour
         if (jumpInput != 0 && canJump)
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-        }
+            animator.SetBool("isJumping", true);
+        }    
     }
     // Set the jumping to a bool
     public void SetCanJump(bool b)
