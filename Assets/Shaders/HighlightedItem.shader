@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Custom/HighlightedItem"
 {
     Properties
@@ -6,11 +8,56 @@ Shader "Custom/HighlightedItem"
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        _OutlineColour ("Outline Color", Color) = (1,1,1,1)
+        _OutlineThickness ("Outline Thickness", float) = 0.1
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" }
         LOD 200
+
+    // Outline Pass
+        Pass
+        {
+            Cull Front 
+
+            CGPROGRAM
+
+            #include "UnityCG.cginc"
+            #pragma vertex vert
+            #pragma fragment frag
+
+            float4 _OutlineColour;
+            float _OutlineThickness;
+
+            struct appdata
+            {
+                float4 vertex : POSITION;
+                float4 normal : NORMAL;
+            };
+
+            struct v2f
+            {
+                float4 position : SV_POSITION;
+            };
+
+            v2f vert(appdata ad)
+            {
+                v2f v;
+                v.position = UnityObjectToClipPos(ad.vertex + normalize(ad.normal) * _OutlineThickness);
+                return v;
+            }
+
+            float4 frag(v2f v) : SV_TARGET
+            {
+                float4 oc = _OutlineColour;
+                return oc;
+            }
+
+            ENDCG
+        }
+        // Outline inspired from: https://ronja-tutorials.tumblr.com/post/176120178562/multipass-shaders-inverted-hull-outlines
+        
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
