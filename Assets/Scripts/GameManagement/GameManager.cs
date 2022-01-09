@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,5 +39,11 @@ public class GameManager : MonoBehaviour
     static public bool GetIs1stPP()
     {
         return is1stPP;
+    }
+
+    // Game over - move onto the game over scene
+    public static void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
