@@ -13,6 +13,9 @@ public class Timer : MonoBehaviour
     // The time accumulated from dt
     private float dtCounter = 0.0f;
 
+    [SerializeField] private GameObject extentionSign = null;
+    private float extSignShownTime = 3.0f;
+
     // Static time overview
     static public float timeOverview = 1.0f;
     private void Awake()
@@ -20,6 +23,10 @@ public class Timer : MonoBehaviour
         // Set the default mituest and minutes
         minutes = startingMinutes;
         seconds = startingSeconds;
+
+        // Hide the extention sign
+        extentionSign.SetActive(false);
+        extSignShownTime = 3.0f;
 
         // Transform seconds into minutes 
         IncreaseSecsToMins();
@@ -29,24 +36,35 @@ public class Timer : MonoBehaviour
     }
     void Update()
     {
-        // Update the timer of dt
-        dtCounter += Time.deltaTime;
-
-        // When it is over a second
-        if (dtCounter >= 1.0f)
-        {
-            seconds--;
-            dtCounter -= 1.0f;
-            // Check if the seconds are 0
-            DecreaseSecsToMins();
-            // Update the new string to the text
-            UpdateTimeStr();   
-        }
-
-        // Lose the game if the time has reached 0
+        // If the timer is down, give the player 1 more minute
         if (minutes == 0 && seconds == 0)
         {
-            GameManager.GameOver();
+            extentionSign.SetActive(true);
+            if (extSignShownTime > 0)
+            {
+                extSignShownTime -= Time.deltaTime;
+            }
+            else
+            {
+                minutes = 1;
+                extentionSign.SetActive(false);
+            }
+        }
+        else
+        {
+            // Update the timer of dt
+            dtCounter += Time.deltaTime;
+
+            // When it is over a second
+            if (dtCounter >= 1.0f)
+            {
+                seconds--;
+                dtCounter -= 1.0f;
+                // Check if the seconds are 0
+                DecreaseSecsToMins();
+                // Update the new string to the text
+                UpdateTimeStr();   
+            }
         }
     }
 

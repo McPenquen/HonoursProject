@@ -25,5 +25,10 @@ public class MainMenuNavigation : MonoBehaviour
     {
         Application.Quit();
     }
+    // Return to the main menu
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
 }
