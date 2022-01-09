@@ -44,12 +44,6 @@ public class GameManager : MonoBehaviour
         return is1stPP;
     }
 
-    // Game over - move onto the game over scene
-    public static void GameOver()
-    {
-        SceneManager.LoadScene("GameOver");
-    }
-
     // Save score
     public static void SaveScore(float f)
     {

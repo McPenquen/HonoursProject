@@ -13,7 +13,7 @@ public class Timer : MonoBehaviour
     // The time accumulated from dt
     private float dtCounter = 0.0f;
 
-    [SerializeField] private GameObject extentionSign = null;
+    [SerializeField] private GameObject extensionSign = null;
     private float extSignShownTime = 3.0f;
 
     // Static time overview
@@ -24,8 +24,8 @@ public class Timer : MonoBehaviour
         minutes = startingMinutes;
         seconds = startingSeconds;
 
-        // Hide the extention sign
-        extentionSign.SetActive(false);
+        // Hide the extension sign
+        extensionSign.SetActive(false);
         extSignShownTime = 3.0f;
 
         // Transform seconds into minutes 
@@ -39,7 +39,7 @@ public class Timer : MonoBehaviour
         // If the timer is down, give the player 1 more minute
         if (minutes == 0 && seconds == 0)
         {
-            extentionSign.SetActive(true);
+            extensionSign.SetActive(true);
             if (extSignShownTime > 0)
             {
                 extSignShownTime -= Time.deltaTime;
@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
             else
             {
                 minutes = 1;
-                extentionSign.SetActive(false);
+                extensionSign.SetActive(false);
             }
         }
         else

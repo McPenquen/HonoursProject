@@ -59811,7 +59811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMinutes: 2
   startingSeconds: 0
-  extentionSign: {fileID: 1573345677}
+  extensionSign: {fileID: 1573345677}
 --- !u!114 &2144009121
 MonoBehaviour:
   m_ObjectHideFlags: 0
