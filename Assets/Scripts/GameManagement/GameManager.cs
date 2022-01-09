@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     // Bool if it is 1st person perspective, false = 3rd person perspective
     static private bool is1stPP = true;
 
+    // Saved score
+    [SerializeField] private static string score = "";
+
     private void Awake()
     {
         // SINGLETON PATTERN
@@ -45,5 +48,17 @@ public class GameManager : MonoBehaviour
     public static void GameOver()
     {
         SceneManager.LoadScene("GameOver");
+    }
+
+    // Save score
+    public static void SaveScore(float f)
+    {
+        score = f.ToString();
+    }
+
+    // Get score
+    public static string GetScore()
+    {
+        return score;
     }
 }
