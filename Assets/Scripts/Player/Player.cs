@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     
     // The player is can jump - is touching the floor/and object with feet
     private bool canJump = false;
+    // Activate controls detection
+    private bool isDetectingInput = true;
 
      void Start()
     {
@@ -47,7 +49,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Detect movement
-        DetectInput();
+        if (isDetectingInput)
+        {
+          DetectInput();  
+        }
     }
 
      // Detect Movement and move
@@ -142,6 +147,11 @@ public class Player : MonoBehaviour
     public void SetCanJump(bool b)
     {
         canJump = b;
+    }
+    // Set detecting input bool
+    public void SetInputDetection(bool b)
+    {
+        isDetectingInput = b;
     }
 
 }
